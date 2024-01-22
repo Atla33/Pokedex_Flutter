@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/screens/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:pokedex_flutter/store/pokemon_store.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    Provider<PokemonStore>(
+      create: (_) => PokemonStore(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

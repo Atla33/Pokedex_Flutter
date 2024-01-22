@@ -1,26 +1,21 @@
+// home_tab.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:pokedex_flutter/config/pokemon_card.dart';
-import 'package:pokedex_flutter/service/pokemon_service.dart';
+import 'package:pokedex_flutter/store/pokemon_store.dart';
 
 class HomeTab extends StatelessWidget {
-  HomeTab({Key? key}) : super(key: key);
+  final PokemonStore pokemonStore;
 
-  late final PokemonService pokemonService = PokemonService();
-
-  Future<List<Pokemon>> _fetchPokemons() async {
-    try {
-      return await pokemonService.fetchPokemons();
-    } catch (error) {
-      throw 'Erro: $error';
-    }
-  }
+  HomeTab({Key? key, required this.pokemonStore}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Fundo branco
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 40, 40, 1), // AppBar vermelha
+        backgroundColor: Color.fromRGBO(255, 40, 40, 1),
         title: const Text(
           'Pokédex',
           style: TextStyle(
@@ -37,25 +32,28 @@ class HomeTab extends StatelessWidget {
           )
         ],
       ),
-      body: FutureBuilder<List<Pokemon>>(
-        future: _fetchPokemons(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                'Erro: ${snapshot.error}',
-                style: const TextStyle(fontSize: 20),
-              ),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (_, index) {
-                return PokemonCard(pokemon: snapshot.data![index]);
-              },
-            );
+      body: Observer(
+        builder: (_) {
+          switch (pokemonStore.pokemonsFuture.status) {
+            case FutureStatus.pending:
+              return const Center(child: CircularProgressIndicator());
+            case FutureStatus.rejected:
+              return Center(
+                child: Text(
+                  'Erro: ${pokemonStore.pokemonsFuture.error}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              );
+            case FutureStatus.fulfilled:
+              return ListView.builder(
+                itemCount: pokemonStore.pokemonsFuture.result.length,
+                itemBuilder: (_, index) {
+                  return PokemonCard(
+                      pokemon: pokemonStore.pokemonsFuture.result[index]);
+                },
+              );
+            default:
+              return const SizedBox.shrink();
           }
         },
       ),
