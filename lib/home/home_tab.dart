@@ -3,36 +3,52 @@ import 'package:pokedex_flutter/config/pokemon_card.dart';
 import 'package:pokedex_flutter/service/pokemon_service.dart';
 
 class HomeTab extends StatelessWidget {
-  HomeTab({super.key});
+  HomeTab({Key? key}) : super(key: key);
 
-  final PokemonService pokemonService = PokemonService();
+  late final PokemonService pokemonService = PokemonService();
+
+  Future<List<Pokemon>> _fetchPokemons() async {
+    try {
+      return await pokemonService.fetchPokemons();
+    } catch (error) {
+      throw 'Erro: $error';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // Fundo branco
       appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: const Text.rich(TextSpan(
-          style: TextStyle(fontSize: 30),
-          children: [
-            TextSpan(text: 'Pokedex', style: TextStyle(color: Colors.white)),
-          ]
-        )),
+        backgroundColor: Color.fromRGBO(255, 40, 40, 1), // AppBar vermelha
+        title: const Text(
+          'Pokédex',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.send),
+            icon: const Icon(Icons.menu, color: Colors.white, size: 30),
             onPressed: () {},
           )
         ],
       ),
       body: FutureBuilder<List<Pokemon>>(
-        future: pokemonService.fetchPokemons(),
+        future: _fetchPokemons(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Text('Erro: ${snapshot.error}');
+            return Center(
+              child: Text(
+                'Erro: ${snapshot.error}',
+                style: const TextStyle(fontSize: 20),
+              ),
+            );
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,

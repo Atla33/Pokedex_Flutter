@@ -22,6 +22,7 @@ class PokemonDetail {
   final List<String> weaknesses;
   final List<Evolution> prevEvolution;
   final List<Evolution> nextEvolution;
+  final List<String> type; // Adiciona um campo para o tipo do Pokémon
 
   PokemonDetail({
     required this.height,
@@ -30,20 +31,29 @@ class PokemonDetail {
     required this.weaknesses,
     required this.prevEvolution,
     required this.nextEvolution,
+    required this.type, // Inclui o tipo na lista de parâmetros
   });
 
   factory PokemonDetail.fromJson(Map<String, dynamic> json) {
-  return PokemonDetail(
-    height: json['height'],
-    weight: json['weight'],
-    spawnTime: json['spawn_time'],
-    weaknesses: List<String>.from(json['weaknesses']),
-    prevEvolution: json['prev_evolution'] != null ? (json['prev_evolution'] as List).map((e) => Evolution.fromJson(e)).toList() : [],
-    nextEvolution: json['next_evolution'] != null ? (json['next_evolution'] as List).map((e) => Evolution.fromJson(e)).toList() : [],
+    return PokemonDetail(
+      height: json['height'],
+      weight: json['weight'],
+      spawnTime: json['spawn_time'],
+      weaknesses: List<String>.from(json['weaknesses']),
+      prevEvolution: json['prev_evolution'] != null
+          ? (json['prev_evolution'] as List)
+              .map((e) => Evolution.fromJson(e))
+              .toList()
+          : [],
+      nextEvolution: json['next_evolution'] != null
+          ? (json['next_evolution'] as List)
+              .map((e) => Evolution.fromJson(e))
+              .toList()
+          : [],
+      type: List<String>.from(json['type']), // Preenche o tipo do Pokémon
     );
   }
 }
-
 
 class Pokemon {
   final String name;
@@ -65,14 +75,16 @@ class PokemonService {
   Dio _dio = Dio();
 
   Future<List<Pokemon>> fetchPokemons() async {
-    final response = await _dio.get('https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
+    final response = await _dio.get(
+        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json');
 
     if (response.statusCode == 200) {
-  Map<String, dynamic> data = jsonDecode(response.data);
-  List<dynamic> pokemonsJson = data['pokemon'];
-  List<Pokemon> pokemons = pokemonsJson.map((json) => Pokemon.fromJson(json)).toList();
-  return pokemons;
-} else {
+      Map<String, dynamic> data = jsonDecode(response.data);
+      List<dynamic> pokemonsJson = data['pokemon'];
+      List<Pokemon> pokemons =
+          pokemonsJson.map((json) => Pokemon.fromJson(json)).toList();
+      return pokemons;
+    } else {
       throw Exception('Erro ao buscar dados do Pokémon.');
     }
   }

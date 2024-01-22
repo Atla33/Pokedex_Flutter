@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/screens/pokemon_detail_screen.dart';
 import 'package:pokedex_flutter/service/pokemon_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
@@ -9,6 +10,30 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Crie um mapa de cores para cada tipo de Pokémon
+    final Map<String, Color> typeColors = {
+      'Grass': Colors.greenAccent,
+      'Fire': Colors.redAccent,
+      'Water': Colors.blueAccent,
+      'Poison': Colors.deepPurpleAccent,
+      'Electric': Colors.amber,
+      'Rock': Colors.grey,
+      'Ground': Colors.brown,
+      'Psychic': Colors.indigo,
+      'Fighting': Colors.orange,
+      'Bug': Colors.lightGreenAccent,
+      'Ghost': Colors.deepPurple,
+      'Normal': Colors.white70,
+      'Others': Colors.pink, // Adicione mais tipos e cores conforme necessário
+    };
+
+    // Obtém o tipo do Pokémon
+    String pokemonType =
+        pokemon.detail.type.isNotEmpty ? pokemon.detail.type[0] : 'Others';
+
+    // Obtém a cor do tipo do Pokémon ou define como branca se não existir no mapa
+    Color cardColor = typeColors[pokemonType] ?? Colors.white;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -17,7 +42,13 @@ class PokemonCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ClipOval(
-                child: Image.network(pokemon.imageUrl, width: 30, height: 30),
+                child: CachedNetworkImage(
+                  imageUrl: pokemon.imageUrl,
+                  width: 30,
+                  height: 30,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
             ),
             Text(
@@ -30,18 +61,22 @@ class PokemonCard extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PokemonDetailScreen(pokemon: pokemon)),
+              MaterialPageRoute(
+                  builder: (context) => PokemonDetailScreen(pokemon: pokemon)),
             );
           },
           child: Card(
+            color: cardColor, // Define a cor do card
             child: Column(
               children: <Widget>[
                 Center(
-                  child: Image.network(
-                    pokemon.imageUrl,
-                    width: 270,  // Ajuste o tamanho conforme necessário
-                    height: 250, // Ajuste o tamanho conforme necessário
-                    fit: BoxFit.contain, // Utiliza BoxFit.contain para evitar cortes
+                  child: CachedNetworkImage(
+                    imageUrl: pokemon.imageUrl,
+                    width: 270,
+                    height: 250,
+                    fit: BoxFit.contain,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
               ],
@@ -73,20 +108,23 @@ class PokemonCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row( // Adiciona um widget Row
+          child: Row(
             children: <Widget>[
-              Text('Nome: ${pokemon.name}, ', style: TextStyle(fontSize: 14)), // Aumenta o tamanho do texto
-              Text('Altura: ${pokemon.detail.height}, ', style: TextStyle(fontSize: 14)), // Aumenta o tamanho do texto
-              GestureDetector( // Adiciona um GestureDetector para o texto "mais..."
+              Text('Nome: ${pokemon.name}, ', style: TextStyle(fontSize: 14)),
+              Text('Altura: ${pokemon.detail.height}, ',
+                  style: TextStyle(fontSize: 14)),
+              GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PokemonDetailScreen(pokemon: pokemon)),
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PokemonDetailScreen(pokemon: pokemon)),
                   );
                 },
                 child: Text(
                   'mais...',
-                  style: TextStyle(color: Colors.blue, fontSize: 14), // Faz o texto parecer um link e aumenta o tamanho do texto
+                  style: TextStyle(color: Colors.blue, fontSize: 14),
                 ),
               ),
             ],
