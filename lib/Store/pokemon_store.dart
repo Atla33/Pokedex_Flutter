@@ -1,4 +1,3 @@
-// pokemon_store.dart
 import 'package:mobx/mobx.dart';
 import 'package:pokedex_flutter/service/pokemon_service.dart';
 
@@ -11,6 +10,9 @@ abstract class _PokemonStore with Store {
 
   @observable
   ObservableFuture<List<Pokemon>> pokemonsFuture = ObservableFuture.value([]);
+
+  @observable
+  ObservableList<Pokemon> pokemons = ObservableList<Pokemon>();
 
   @observable
   String loadingState = "idle";
@@ -32,6 +34,11 @@ abstract class _PokemonStore with Store {
     } catch (e) {
       loadingState = "error";
     }
+  }
+
+  @action
+  void addPokemon(Pokemon pokemon) {
+    pokemons.add(pokemon);
   }
 
   @action

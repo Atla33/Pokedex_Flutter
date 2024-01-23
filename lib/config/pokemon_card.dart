@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pokedex_flutter/Store/pokemon_store.dart';
 import 'package:pokedex_flutter/screens/pokemon_detail_screen.dart';
 import 'package:pokedex_flutter/service/pokemon_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class PokemonCard extends StatelessWidget {
+class PokemonCard extends StatefulWidget {
   final Pokemon pokemon;
 
   PokemonCard({required this.pokemon});
+
+  @override
+  _PokemonCardState createState() => _PokemonCardState();
+}
+
+class _PokemonCardState extends State<PokemonCard> {
+  final PokemonStore pokemonStore = PokemonStore();
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +35,9 @@ class PokemonCard extends StatelessWidget {
       'Others': Colors.pink,
     };
 
-    String pokemonType =
-        pokemon.detail.type.isNotEmpty ? pokemon.detail.type[0] : 'Others';
+    String pokemonType = widget.pokemon.detail.type.isNotEmpty
+        ? widget.pokemon.detail.type[0]
+        : 'Others';
 
     Color cardColor = typeColors[pokemonType] ?? Colors.white;
 
@@ -40,7 +50,7 @@ class PokemonCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: pokemon.imageUrl,
+                  imageUrl: widget.pokemon.imageUrl,
                   width: 30,
                   height: 30,
                   placeholder: (context, url) =>
@@ -50,7 +60,7 @@ class PokemonCard extends StatelessWidget {
               ),
             ),
             Text(
-              pokemon.name,
+              widget.pokemon.name,
               style: const TextStyle(fontSize: 20),
             ),
           ],
@@ -60,7 +70,8 @@ class PokemonCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PokemonDetailScreen(pokemon: pokemon)),
+                  builder: (context) =>
+                      PokemonDetailScreen(pokemon: widget.pokemon)),
             );
           },
           child: Card(
@@ -69,7 +80,7 @@ class PokemonCard extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: CachedNetworkImage(
-                    imageUrl: pokemon.imageUrl,
+                    imageUrl: widget.pokemon.imageUrl,
                     width: 270,
                     height: 250,
                     fit: BoxFit.contain,
@@ -85,9 +96,13 @@ class PokemonCard extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.favorite_border),
-              onPressed: () {},
+            Observer(
+              builder: (_) => IconButton(
+                icon: Icon(
+                  pokemonStore.isLiked ? Icons.favorite : Icons.favorite_border,
+                ),
+                onPressed: pokemonStore.toggleLikeStatus,
+              ),
             ),
             IconButton(
               icon: const Icon(Icons.comment),
@@ -110,9 +125,9 @@ class PokemonCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             children: <Widget>[
-              Text('Nome: ${pokemon.name}, ',
+              Text('Nome: ${widget.pokemon.name}, ',
                   style: const TextStyle(fontSize: 14)),
-              Text('Altura: ${pokemon.detail.height}, ',
+              Text('Altura: ${widget.pokemon.detail.height}, ',
                   style: const TextStyle(fontSize: 14)),
               GestureDetector(
                 onTap: () {
@@ -120,7 +135,7 @@ class PokemonCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            PokemonDetailScreen(pokemon: pokemon)),
+                            PokemonDetailScreen(pokemon: widget.pokemon)),
                   );
                 },
                 child: const Text(

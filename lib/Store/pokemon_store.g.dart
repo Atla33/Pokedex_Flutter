@@ -25,6 +25,22 @@ mixin _$PokemonStore on _PokemonStore, Store {
     });
   }
 
+  late final _$pokemonsAtom =
+      Atom(name: '_PokemonStore.pokemons', context: context);
+
+  @override
+  ObservableList<Pokemon> get pokemons {
+    _$pokemonsAtom.reportRead();
+    return super.pokemons;
+  }
+
+  @override
+  set pokemons(ObservableList<Pokemon> value) {
+    _$pokemonsAtom.reportWrite(value, super.pokemons, () {
+      super.pokemons = value;
+    });
+  }
+
   late final _$loadingStateAtom =
       Atom(name: '_PokemonStore.loadingState', context: context);
 
@@ -69,6 +85,17 @@ mixin _$PokemonStore on _PokemonStore, Store {
       ActionController(name: '_PokemonStore', context: context);
 
   @override
+  void addPokemon(Pokemon pokemon) {
+    final _$actionInfo = _$_PokemonStoreActionController.startAction(
+        name: '_PokemonStore.addPokemon');
+    try {
+      return super.addPokemon(pokemon);
+    } finally {
+      _$_PokemonStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void toggleLikeStatus() {
     final _$actionInfo = _$_PokemonStoreActionController.startAction(
         name: '_PokemonStore.toggleLikeStatus');
@@ -83,6 +110,7 @@ mixin _$PokemonStore on _PokemonStore, Store {
   String toString() {
     return '''
 pokemonsFuture: ${pokemonsFuture},
+pokemons: ${pokemons},
 loadingState: ${loadingState},
 isLiked: ${isLiked}
     ''';

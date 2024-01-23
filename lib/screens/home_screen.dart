@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pokedex_flutter/Store/pokemon_store.dart';
 import 'package:pokedex_flutter/base/home_base.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  final PokemonStore pokemonStore = PokemonStore();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,12 @@ class HomeScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/Pikachu.webp', height: 150),
+                    Observer(
+                      builder: (_) => Image.asset(
+                        'assets/Pikachu.webp', // Substitua pelo caminho da imagem do seu Pokémon
+                        height: 150,
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     const Text.rich(
                       TextSpan(
