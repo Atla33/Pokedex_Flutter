@@ -1,4 +1,4 @@
-# Projeto App Pokémon
+# Projeto App Pokémon ![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/273d10b8-0539-49a2-be3a-d0d75a7af401)![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/261f9624-b80e-444f-a33c-9066540f7a7e)![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/5f646242-2d6b-49df-9334-fe56074af027)
 
 Este projeto é um aplicativo desenvolvido em Flutter que simula o feed de uma rede social. O aplicativo consome a API de Pokémons e exibe os posts em formato de cards. Ao clicar em um post específico, uma tela de detalhes é exibida.
 
