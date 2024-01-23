@@ -10,7 +10,6 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Crie um mapa de cores para cada tipo de Pokémon
     final Map<String, Color> typeColors = {
       'Grass': Colors.greenAccent,
       'Fire': Colors.redAccent,
@@ -24,14 +23,12 @@ class PokemonCard extends StatelessWidget {
       'Bug': Colors.lightGreenAccent,
       'Ghost': Colors.deepPurple,
       'Normal': Colors.white70,
-      'Others': Colors.pink, // Adicione mais tipos e cores conforme necessário
+      'Others': Colors.pink,
     };
 
-    // Obtém o tipo do Pokémon
     String pokemonType =
         pokemon.detail.type.isNotEmpty ? pokemon.detail.type[0] : 'Others';
 
-    // Obtém a cor do tipo do Pokémon ou define como branca se não existir no mapa
     Color cardColor = typeColors[pokemonType] ?? Colors.white;
 
     return Column(
@@ -46,14 +43,15 @@ class PokemonCard extends StatelessWidget {
                   imageUrl: pokemon.imageUrl,
                   width: 30,
                   height: 30,
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),
             Text(
               pokemon.name,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),
@@ -66,7 +64,7 @@ class PokemonCard extends StatelessWidget {
             );
           },
           child: Card(
-            color: cardColor, // Define a cor do card
+            color: cardColor,
             child: Column(
               children: <Widget>[
                 Center(
@@ -75,8 +73,10 @@ class PokemonCard extends StatelessWidget {
                     width: 270,
                     height: 250,
                     fit: BoxFit.contain,
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ],
@@ -86,21 +86,21 @@ class PokemonCard extends StatelessWidget {
         Row(
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.favorite_border),
+              icon: const Icon(Icons.favorite_border),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.comment),
+              icon: const Icon(Icons.comment),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.send),
+              icon: const Icon(Icons.send),
               onPressed: () {},
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
             'Curtido por esigsoftware e outras 13,616 pessoas',
             style: TextStyle(fontSize: 12),
@@ -110,9 +110,10 @@ class PokemonCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             children: <Widget>[
-              Text('Nome: ${pokemon.name}, ', style: TextStyle(fontSize: 14)),
+              Text('Nome: ${pokemon.name}, ',
+                  style: const TextStyle(fontSize: 14)),
               Text('Altura: ${pokemon.detail.height}, ',
-                  style: TextStyle(fontSize: 14)),
+                  style: const TextStyle(fontSize: 14)),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -122,7 +123,7 @@ class PokemonCard extends StatelessWidget {
                             PokemonDetailScreen(pokemon: pokemon)),
                   );
                 },
-                child: Text(
+                child: const Text(
                   'mais...',
                   style: TextStyle(color: Colors.blue, fontSize: 14),
                 ),

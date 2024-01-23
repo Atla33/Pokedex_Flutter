@@ -44,7 +44,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
       backgroundColor: cardColor,
       appBar: AppBar(
         backgroundColor: cardColor,
-        title: Text(
+        title: const Text(
           "Pokedex",
           style: TextStyle(
             fontSize: 30,
@@ -70,7 +70,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
       body: Observer(
         builder: (_) {
           if (pokemonStore.loadingState == "loading") {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (pokemonStore.loadingState == "completed") {
             return SingleChildScrollView(
               child: Center(
@@ -79,11 +79,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                   children: <Widget>[
                     Text(
                       widget.pokemon.name,
-                      style: TextStyle(fontSize: 30, color: Colors.white),
+                      style: const TextStyle(fontSize: 30, color: Colors.white),
                     ),
                     Text(
                       pokemonType,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     Image.network(
                       widget.pokemon.imageUrl,
@@ -93,10 +93,10 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(12.0),
                           topRight: Radius.circular(12.0),
                         ),
@@ -105,7 +105,7 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                             color: Colors.black.withOpacity(0.2),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
                       ),
@@ -114,30 +114,30 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text('Nome: ${widget.pokemon.name}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.bold)),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text('Altura: ${widget.pokemon.detail.height}',
-                              style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 10),
+                              style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
                           Text('Peso: ${widget.pokemon.detail.weight}',
-                              style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 10),
+                              style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
                           Text(
                               'Hora de Desova: ${widget.pokemon.detail.spawnTime}',
-                              style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 10),
+                              style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
                           Text(
                               'Fraquezas: ${widget.pokemon.detail.weaknesses.join(', ')}',
-                              style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 10),
+                              style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
                           Text(
                               'Pré-evolução: ${widget.pokemon.detail.prevEvolution.map((e) => e.name).join(', ')}',
-                              style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 10),
+                              style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 10),
                           Text(
                               'Próxima evolução: ${widget.pokemon.detail.nextEvolution.map((e) => e.name).join(', ')}',
-                              style: TextStyle(fontSize: 20)),
+                              style: const TextStyle(fontSize: 20)),
                         ],
                       ),
                     ),
@@ -146,11 +146,11 @@ class _PokemonDetailScreenState extends State<PokemonDetailScreen> {
               ),
             );
           } else if (pokemonStore.loadingState == "error") {
-            return Center(
+            return const Center(
                 child: Text(
                     "Ocorreu um erro ao carregar os detalhes do Pokémon."));
           } else {
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           }
         },
       ),

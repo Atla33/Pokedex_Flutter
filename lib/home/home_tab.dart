@@ -1,4 +1,3 @@
-// home_tab.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -8,14 +7,14 @@ import 'package:pokedex_flutter/store/pokemon_store.dart';
 class HomeTab extends StatelessWidget {
   final PokemonStore pokemonStore;
 
-  HomeTab({Key? key, required this.pokemonStore}) : super(key: key);
+  const HomeTab({Key? key, required this.pokemonStore}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 40, 40, 1),
+        backgroundColor: const Color.fromRGBO(255, 40, 40, 1),
         title: const Text(
           'Pokédex',
           style: TextStyle(

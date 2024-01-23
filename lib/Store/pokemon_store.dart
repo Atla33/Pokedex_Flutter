@@ -13,7 +13,7 @@ abstract class _PokemonStore with Store {
   ObservableFuture<List<Pokemon>> pokemonsFuture = ObservableFuture.value([]);
 
   @observable
-  String loadingState = "idle"; // Adicione este estado
+  String loadingState = "idle";
 
   @observable
   bool isLiked = false;

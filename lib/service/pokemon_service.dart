@@ -22,7 +22,7 @@ class PokemonDetail {
   final List<String> weaknesses;
   final List<Evolution> prevEvolution;
   final List<Evolution> nextEvolution;
-  final List<String> type; // Adiciona um campo para o tipo do Pokémon
+  final List<String> type;
 
   PokemonDetail({
     required this.height,
@@ -31,7 +31,7 @@ class PokemonDetail {
     required this.weaknesses,
     required this.prevEvolution,
     required this.nextEvolution,
-    required this.type, // Inclui o tipo na lista de parâmetros
+    required this.type,
   });
 
   factory PokemonDetail.fromJson(Map<String, dynamic> json) {
@@ -50,7 +50,7 @@ class PokemonDetail {
               .map((e) => Evolution.fromJson(e))
               .toList()
           : [],
-      type: List<String>.from(json['type']), // Preenche o tipo do Pokémon
+      type: List<String>.from(json['type']),
     );
   }
 }
@@ -58,7 +58,7 @@ class PokemonDetail {
 class Pokemon {
   final String name;
   final String imageUrl;
-  PokemonDetail detail; // Adiciona um campo para os detalhes do Pokémon
+  PokemonDetail detail;
 
   Pokemon({required this.name, this.imageUrl = '', required this.detail});
 
@@ -66,13 +66,13 @@ class Pokemon {
     return Pokemon(
       name: json['name'],
       imageUrl: json['img'],
-      detail: PokemonDetail.fromJson(json), // Preenche os detalhes do Pokémon
+      detail: PokemonDetail.fromJson(json),
     );
   }
 }
 
 class PokemonService {
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   Future<List<Pokemon>> fetchPokemons() async {
     final response = await _dio.get(

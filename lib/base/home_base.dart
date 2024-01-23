@@ -11,7 +11,7 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen> {
   final pageController = PageController();
-  final pokemonStore = PokemonStore(); // Cria uma instância de PokemonStore
+  final pokemonStore = PokemonStore();
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,9 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          HomeTab(pokemonStore: pokemonStore), // Passa a instância para HomeTab
+          HomeTab(pokemonStore: pokemonStore),
         ],
       ),
-      // FloatingActionButton removido
     );
   }
 }
