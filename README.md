@@ -22,7 +22,8 @@ Este projeto é uma excelente demonstração do poder e da flexibilidade do Flut
 A [API de Pokémons](https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json) é utilizada neste projeto. Ela fornece dados sobre diferentes Pokémons que são consumidos pelo aplicativo para exibir informações relevantes aos usuários. A API é acessada através de requisições HTTP, que são gerenciadas pela biblioteca Dio no Flutter. As respostas da API são então processadas e utilizadas para preencher os posts e detalhes exibidos no aplicativo.
 
 
-![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/273d10b8-0539-49a2-be3a-d0d75a7af401)![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/f3bafe67-2e13-4d1f-bc9b-ceedf5eb231f)![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/5f646242-2d6b-49df-9334-fe56074af027)
+![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/273d10b8-0539-49a2-be3a-d0d75a7af401)![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/261f9624-b80e-444f-a33c-9066540f7a7e)
+![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/5f646242-2d6b-49df-9334-fe56074af027)
 
 
 
