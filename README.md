@@ -1,5 +1,14 @@
 # Projeto App Pokémon
 
+# Telas
+
+![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/6218d05e-b605-4e94-a469-40b18d0074ae)
+
+![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/69830864-50eb-420f-ad7a-2c0b0451c956)
+
+![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/a64d7f1e-b8b4-462e-a9af-5eba9b883ee1)
+
+
 Este projeto é um aplicativo desenvolvido em Flutter que simula o feed de uma rede social. O aplicativo consome a API de Pokémons e exibe os posts em formato de cards. Ao clicar em um post específico, uma tela de detalhes é exibida.
 
 ## Tecnologias Utilizadas
@@ -17,6 +26,7 @@ O aplicativo apresenta um feed de posts, cada um representando um Pokémon. Cada
 
 Este projeto é uma excelente demonstração do poder e da flexibilidade do Flutter e das bibliotecas mencionadas. Esperamos que você goste!
 
+
 # API Utilizada
 
 A [API de Pokémons](https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json) é utilizada neste projeto. Ela fornece dados sobre diferentes Pokémons que são consumidos pelo aplicativo para exibir informações relevantes aos usuários. A API é acessada através de requisições HTTP, que são gerenciadas pela biblioteca Dio no Flutter. As respostas da API são então processadas e utilizadas para preencher os posts e detalhes exibidos no aplicativo.
@@ -32,7 +42,7 @@ flutter pub get
 - 4º Execute o aplicativo: Agora você pode executar o aplicativo Flutter em um emulador ou em um dispositivo físico conectado. Use o seguinte comando para iniciar o aplicativo:
 flutter run ou precione F5
 
-Lembre-se de ter o Flutter e o Dart corretamente instalados em sua máquina e um dispositivo (emulador ou físico) pronto para executar o aplicativo.
+Lembre-se de ter o Flutter e o Dart corretamente instalados e atualizados em sua máquina e um dispositivo (emulador ou físico) pronto para executar o aplicativo.
 
 ![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/273d10b8-0539-49a2-be3a-d0d75a7af401)![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/261f9624-b80e-444f-a33c-9066540f7a7e)
 ![image](https://github.com/Atla33/Pokedex_Flutter/assets/92339449/5f646242-2d6b-49df-9334-fe56074af027)
